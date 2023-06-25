@@ -1,15 +1,36 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+
+
+    <div class="flex flex-col h-screen overflow-hidden">
+      <horizontal-bar/>
+      <div class="flex-1">
+        <!-- Le contenu de votre page ici -->
+        <router-view></router-view>
+      </div>
+      <div>
+        <h3>TEST V-SELECT</h3>
+      </div>
+    </div>
+
+
+
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+
+import HorizontalBar from "@/ressource/nav/HorizontalBar.vue";
+import './assets/tailwind.css'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    HorizontalBar
+  },
+
+  methods: {
+    testClick() {
+      console.log("test")
+    }
   }
 }
 </script>
@@ -23,4 +44,8 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 </style>
