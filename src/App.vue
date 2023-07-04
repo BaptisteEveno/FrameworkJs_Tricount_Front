@@ -1,19 +1,11 @@
 <template>
-
-
     <div class="flex flex-col h-screen overflow-hidden">
       <horizontal-bar/>
       <div class="flex-1">
         <!-- Le contenu de votre page ici -->
         <router-view></router-view>
       </div>
-      <div>
-        <h3>TEST V-SELECT</h3>
-      </div>
     </div>
-
-
-
 </template>
 
 <script>
@@ -28,9 +20,6 @@ export default {
   },
 
   methods: {
-    testClick() {
-      console.log("test")
-    }
   }
 }
 </script>

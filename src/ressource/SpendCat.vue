@@ -2,9 +2,16 @@
   <div class="container mx-auto p-4">
     <h1 class="text-2xl font-bold mb-4">Les dépenses</h1>
 
+
     <!-- Créer une dépense -->
     <div class="flex justify-start mb-4">
       <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" @click="openModal">Ajouter
+        une dépense
+      </button>
+    </div>
+    <!-- Créer une dépense -->
+    <div class="flex justify-start mb-4">
+      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" @click="submit">TEST AJOUT
         une dépense
       </button>
     </div>
@@ -24,10 +31,14 @@
         <tr v-for="item in spendCat" :key="item.id">
           <td class="py-2 px-4 border">{{ item.title }}</td>
           <td class="py-2 px-4 border">
-            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" @click="editSpend(item.id)">Modifier</button>
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    @click="editSpend(item.id)">Modifier
+            </button>
           </td>
           <td class="py-2 px-4 border">
-            <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" @click="deleteSpend(item.id)">Supprimer</button>
+            <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                    @click="deleteSpend(item.id)">Supprimer
+            </button>
           </td>
         </tr>
         </tbody>
@@ -133,7 +144,6 @@ export default {
   name: "spend-cat",
   created() {
     this.getSpendCat()
-
   },
   data() {
     return {
@@ -146,6 +156,7 @@ export default {
         spendDate: null,
         userPay: null
       },
+      state: null,
       spend: [],
       spendCat: [],
       isModalOpen: false,
@@ -158,52 +169,38 @@ export default {
     closeModal() {
       this.isModalOpen = false;
     },
-    async submitData() {
-      try {
-        const url = 'http://127.0.0.1:3001/spend-cat';
-        const data = {
-          title : "Mangerrrrrrrrrr"
-        }
+    submit() {
+      this.state = {
+        title: "TEST125",
+      };
+      console.log(this.state);
 
-        const response = await fetch(url, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(data)
-        });
+      const options = {
+        method: 'POST',
+        body: JSON.stringify(this.state)
+      };
 
-        if (!response.ok) {
-          throw new Error('La requête a échoué avec le code : ' + response.status);
-        }
-
-        const responseData = await response.json();
-        console.log(responseData);
-        this.closeModal()
-        // Effectuer des actions après la réussite de la requête POST
-      } catch (error) {
-        console.error(error);
-        // Gérer les erreurs de la requête
-      }
+      fetch('http://127.0.0.1:3001/spend-cat', options)
+          .then(response => response.json())
+          .then(data => {
+            console.log(data)
+          }).catch(err => {
+        console.log(err)
+      });
     },
-    async submitSpendCat2() {
-      try {
-        console.log('TEST')
-        let test = {
-          "title" : "Mangerrrr"
-        }
-        let data = {
-          title : this.title
-        }
-        console.log(data)
-        const response = await this.$axios.post('http://127.0.0.1:3001/spend-cat', test);
-        console.log(response.data);
-        // Effectuer des actions après la création réussie
-      } catch (error) {
-        console.error(error);
-        // Gérer les erreurs de la requête
-      }
+    deleteSpend(id){
+      console.log("TEST", id)
+      const options = {
+        method: 'DELETE',
+      };
 
+      fetch('http://127.0.0.1:3001/spend-cat/' + id, options)
+          .then(response => response.json())
+          .then(data => {
+            console.log(data)
+          }).catch(err => {
+        console.log(err)
+      });
     },
     ajouterCategorie() {
 
@@ -214,7 +211,7 @@ export default {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ nom: 'JE TESTE' })
+        body: JSON.stringify({nom: 'JE TESTE'})
       })
           .then(response => response.json())
           .then(data => {
@@ -226,7 +223,6 @@ export default {
             console.error('Erreur lors de l\'ajout de la catégorie:', error);
           });
     },
-
     /*Liste des catégories de dépense*/
     async getSpendCat() {
       try {
@@ -239,7 +235,6 @@ export default {
         console.error(error);
       }
     },
-
 
   },
 

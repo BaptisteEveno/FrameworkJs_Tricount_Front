@@ -66,7 +66,6 @@ import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuIt
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline'
 
 const navigation = [
-  { name: 'home', href: '/home', current: true },
   { name: 'Nos dépenses', href: '/spend', current: true },
   { name: 'Catégorie', href: '/spend-cat', current: true },
   { name: "La Coloc", href: '/users', current: true },
